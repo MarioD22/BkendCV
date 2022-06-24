@@ -44,6 +44,18 @@ public class personaController {
         return perRepository.findAll();
                                                 }
     
+    
+    
+    //buscar por ID//
+
+@GetMapping("/persona/{id}")
+	public ResponseEntity<persona> BuscarPersonaById(@PathVariable Long id) {
+		persona perso = perRepository.findById(id)
+	.orElseThrow(() -> new resourceNotFoundException("No existe persona con ese Id:" + id));
+		return ResponseEntity.ok(perso);
+	}
+    
+    
 
 //crear una persona>> http://localhost:8080/api/v1/new/persona   //
 @PostMapping("/new/persona")
