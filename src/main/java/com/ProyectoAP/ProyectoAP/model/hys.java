@@ -16,7 +16,7 @@ public class hys {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    @Column(name = "nombrehys")
+    @Column(name = "nombre")
     private String nombreHys;
 
     @Column(name = "percent")
@@ -54,7 +54,9 @@ public class hys {
     public void setPercent(String percent) {
         this.percent = percent;
     }
- 
+
+   
+    
     
     
     

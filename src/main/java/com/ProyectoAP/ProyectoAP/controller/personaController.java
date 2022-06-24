@@ -35,14 +35,17 @@ public class personaController {
     @Autowired
     private personaRepository perRepository;
     
+        
     @CrossOrigin(origins = "http://localhost:4200")
+    
+    //buscar todas las pesonas>> http://localhost:8080/api/v1/persona   //
     @GetMapping("/persona")
     public List<persona> buscarTodasLasPersonas(){
         return perRepository.findAll();
                                                 }
     
 
-
+//crear una persona>> http://localhost:8080/api/v1/new/persona   //
 @PostMapping("/new/persona")
 public void crearPersona( @RequestBody persona per) {
         perRepository.save(per);
@@ -50,6 +53,7 @@ public void crearPersona( @RequestBody persona per) {
     
 }
 
+//Modificar una persona>> http://localhost:8080/api/v1/persona/{id}   //
 @PutMapping("/persona/{id}")
 public ResponseEntity<persona> Actualizar(@PathVariable Long id, @RequestBody persona personaDetalle){
 
@@ -67,6 +71,9 @@ public ResponseEntity<persona> Actualizar(@PathVariable Long id, @RequestBody pe
 
 }
 
+
+
+//Eliminar una persona>> http://localhost:8080/api/v1/persona/{id}   //
 @DeleteMapping("/persona/{id}")
 public ResponseEntity<Map<String, Boolean>> eliminarPersonal(@PathVariable Long id){
  persona perso = perRepository.findById(id)
