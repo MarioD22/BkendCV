@@ -14,12 +14,49 @@ public class hys {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     
     @Column(name = "nombre")
-    private String nombreHys;
-
+    private String nombre;
+    
     @Column(name = "percent")
+    private int percent;
+
+    public hys(String nombre, int percent) {
+       
+        this.nombre = nombre;
+        this.percent = percent;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
+    }
+    
+    
+    
+    
+
+  /*  @Column(name = "percent")
     private String percent;
 
     public hys() {
@@ -55,9 +92,11 @@ public class hys {
         this.percent = percent;
     }
 
-   
-    
-    
+   */
+
+    public hys() {
+    }
+
     
     
 }

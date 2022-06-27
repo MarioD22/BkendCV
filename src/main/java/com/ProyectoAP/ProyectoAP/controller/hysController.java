@@ -27,93 +27,71 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Pc
  */
-
 @RestController
 @RequestMapping("/api/v1/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class hysController {
-    
+
     @Autowired
     private hysRepository hysrepository;
-    
-    
+
     @CrossOrigin(origins = "http://localhost:4200")
-   
-    
+
     //Buscar todas las habilidades >> http://localhost:8080/api/v1/hys   //
     @GetMapping("/hys")
-    public List<hys> buscarTodasLashsy(){
-        return  hysrepository.findAll(); 
+    public List<hys> buscarTodasLashsy() {
+        return hysrepository.findAll();
     }
-    
-    
-     //Buscar una habilidad>> http://localhost:8080/api/v1/hys/findById/2   //
-    
-     
-	@GetMapping("/hys/findById/{id}")
-      
-	public hys getUserByID(@PathVariable Long id) {
-		
-            hys hys = hysrepository.findById(id)
-            .orElseThrow(() -> new resourceNotFoundException("No existe habilidad con ese Id:" + id));
-            
-           
-            return hys;
-	}
-	
-        
-        // crear una habilidad nueva>> http://localhost:8080/api/v1/new/hys  //
-        
-        
-     @PostMapping("/new/hys")
-      public void crearhys( @RequestBody hys hysNueva) {
-      hysrepository.save(hysNueva);     
-}
-      
-      //actualizar datos>> http://localhost:8080/api/v1/hys/edit/{id}//
 
+    //Buscar una habilidad>> http://localhost:8080/api/v1/hys/findById/2   //
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/hys/findById/{id}")
 
-@PutMapping("/hys/edit/{id}")
-public ResponseEntity<hys> Actualizar(@PathVariable Long id, @RequestBody hys hysDetalle){
-    
+    public hys getUserByID(@PathVariable Long id) {
 
-    hys Habilidad = hysrepository.findById(id)
-            .orElseThrow(() -> new resourceNotFoundException("No existe habilidad con ese Id:" + id));
-                 
-   
-     Habilidad.setNombreHys(hysDetalle.getNombreHys());
-     Habilidad.setPercent(hysDetalle.getPercent());     
-           
-    
-    hys Actualizarhys = hysrepository.save(Habilidad);
-    return ResponseEntity.ok(Actualizarhys);
+        hys Hys = hysrepository.findById(id)
+                .orElseThrow(() -> new  resourceNotFoundException("No existe habilidad con ese ID:" + id));
+               
 
-}   
+        return Hys;
+    }
 
+    // crear una habilidad nueva>> http://localhost:8080/api/v1/new/hys  //
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/new/hys")
+    public void crearhys(@RequestBody hys hysNueva) {
+        hysrepository.save(hysNueva);
+    }
 
+    //actualizar datos>> http://localhost:8080/api/v1/hys/edit/{id}//
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/hys/edit/{id}")
+    public ResponseEntity<hys> Actualizar(@PathVariable Long id, @RequestBody hys hysDetalle) {
 
+        hys Habilidad = hysrepository.findById(id)
+                .orElseThrow(() -> new resourceNotFoundException("No existe habilidad con ese Id:" + id));
+
+        Habilidad.setNombre(hysDetalle.getNombre());
+
+        Habilidad.setPercent(hysDetalle.getPercent());
+
+        hys Actualizarhys = hysrepository.save(Habilidad);
+        return ResponseEntity.ok(Actualizarhys);
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
 //Elimina capacitacion>> http://localhost:8080/api/v1/hys/delete/{id} //
-@DeleteMapping("/hys/delete/{id}")
-public ResponseEntity<Map<String, Boolean>> eliminarHys(@PathVariable Long id){
-     hys hys = hysrepository.findById(id)    
-      .orElseThrow(() -> new resourceNotFoundException("No existe habilidad con ese Id:" + id));
-	        
-     hysrepository.delete(hys);
-		
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("Habiliadad Eliminada", Boolean.TRUE);
-		return ResponseEntity.ok(response);
-	}
+    @DeleteMapping("/hys/delete/{id}")
+    public ResponseEntity<Map<String, Boolean>> eliminarHys(@PathVariable Long id) {
+        hys hys = hysrepository.findById(id)
+                .orElseThrow(() -> new resourceNotFoundException("No existe habilidad con ese Id:" + id));
 
-      
+        hysrepository.delete(hys);
 
-     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Habiliadad Eliminada", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
+
 }
